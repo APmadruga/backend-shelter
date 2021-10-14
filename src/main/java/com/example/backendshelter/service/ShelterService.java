@@ -51,4 +51,8 @@ public class ShelterService {
         }
         return null;
     }
+
+    public void deleteById(Long shelterId) {
+        shelterRepository.deleteById(shelterId);
+    }
 }

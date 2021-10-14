@@ -53,4 +53,8 @@ public class ShelterController {
         return shelterService.getShelterbyId(shelterId);
     }
 
+    @DeleteMapping(path = "delete-shelter/{id}")
+    public void deleteShelter(@PathVariable(value = "id") Long shelterId) {
+        shelterService.deleteById(shelterId);
+    }
 }

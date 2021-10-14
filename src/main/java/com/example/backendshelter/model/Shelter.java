@@ -11,24 +11,21 @@ import java.util.List;
 @AllArgsConstructor
 @NoArgsConstructor
 @Builder
-@Table(name ="Pet")
+@Table(name ="Shelter")
 @Entity
-public class Pet {
+public class Shelter {
 
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
     private Long id;
 
     @Enumerated
-    private PetType petType;
-
+    private ShelterColors shelterColors;
 
     private String name;
+    private String location;
 
-    @ManyToOne(fetch = FetchType.LAZY, optional = false)
-    @JoinColumn(name = "shelter_id", nullable = false)
-    private Shelter shelter;
+    @OneToMany(mappedBy = "shelter", fetch = FetchType.LAZY, cascade = CascadeType.ALL)
+    private List<Pet> petList;
 
-    @OneToMany(mappedBy = "pet")
-    private List<Feed> feedList;
 }

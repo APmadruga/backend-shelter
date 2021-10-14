@@ -1,6 +1,7 @@
 package com.example.backendshelter.controller;
 
 import com.example.backendshelter.controller.request.CreateShelterRQ;
+import com.example.backendshelter.model.Pet;
 import com.example.backendshelter.model.Shelter;
 import com.example.backendshelter.service.ShelterService;
 import org.springframework.validation.annotation.Validated;
@@ -42,8 +43,14 @@ public class ShelterController {
         return shelterService.addPetsToShelter(getShelter, petIdList);
     }
 
-    @GetMapping(value = "/pet/{name}")
+    @GetMapping(value = "/shelter/{name}")
     public Shelter getShelterByName(@PathVariable(value = "name") @Valid String name){
         return shelterService.getShelterbyName(name);
     }
+
+    @GetMapping(value = "/shelter/{id}")
+    public Shelter getShelterbyId(@PathVariable(value = "id") Long shelterId) {
+        return shelterService.getShelterbyId(shelterId);
+    }
+
 }

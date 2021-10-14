@@ -14,4 +14,6 @@ public class CreatePetRQ {
     private PetType petType;
     @NotBlank(message = "Name is a mandatory field.")
     private String name;
+
+    private Long shelterId;
 }

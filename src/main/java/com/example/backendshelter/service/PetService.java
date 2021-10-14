@@ -3,9 +3,11 @@ package com.example.backendshelter.service;
 import com.example.backendshelter.exception.PetNotFound;
 import com.example.backendshelter.model.Feed;
 import com.example.backendshelter.model.Pet;
+import com.example.backendshelter.model.Shelter;
 import com.example.backendshelter.repository.PetRepository;
 import com.example.backendshelter.controller.request.CreatePetFeedRQ;
 import com.example.backendshelter.controller.request.CreatePetRQ;
+import com.example.backendshelter.repository.ShelterRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.stereotype.Service;
@@ -19,10 +21,12 @@ import java.util.Optional;
 public class PetService {
 
     private final PetRepository petRepository;
+    private final ShelterService shelterService;
 
 
-    public PetService(PetRepository petRepository) {
+    public PetService(PetRepository petRepository, ShelterService shelterService) {
         this.petRepository = petRepository;
+        this.shelterService = shelterService;
     }
 
     public List<Pet> findAll() {
@@ -33,8 +37,10 @@ public class PetService {
     public List<Pet> save(List<CreatePetRQ> createPetRQList) {
         List<Pet> newPetList = new ArrayList<>();
         Pet newPet;
+        Shelter shelter;
         for (CreatePetRQ createPetRQ : createPetRQList) {
-            newPet = Pet.builder().petType(createPetRQ.getPetType()).name(createPetRQ.getName()).build();
+            shelter = shelterService.getShelterbyId(createPetRQ.getShelterId());
+            newPet = Pet.builder().petType(createPetRQ.getPetType()).name(createPetRQ.getName()).shelter(shelter).build();
             petRepository.save(newPet);
             newPetList.add(newPet);
         }

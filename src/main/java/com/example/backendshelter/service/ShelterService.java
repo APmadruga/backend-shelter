@@ -41,4 +41,14 @@ public class ShelterService {
 
         return shelterRepository.save(getShelter);
     }
+
+    public Shelter getShelterbyName(String name) {
+        List<Shelter> allShelters = shelterRepository.findAll();
+        Shelter shelter;
+        for(int i = 0; i < allShelters.size(); i++){
+            if(allShelters.get(i).getName() == name)
+            return allShelters.get(i);
+        }
+        return null;
+    }
 }

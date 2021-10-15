@@ -18,7 +18,7 @@ public class ShelterController {
     }
 
 
-    @PostMapping(value ="/create-shelter", consumes = "application/json", produces = "application/json")
+    @PostMapping(value ="/shelter", consumes = "application/json", produces = "application/json")
     public Shelter createShelter(@RequestBody @Valid CreateShelterRQ createShelterRQ)  {
         Shelter newShelter = Shelter
                 .builder()
@@ -29,11 +29,9 @@ public class ShelterController {
         return shelterService.createShelter(newShelter);
     }
 
-    @PostMapping(value ="/add-pets-to-shelter/{id}", consumes = "application/json", produces = "application/json")
+    @PostMapping(value ="/shelter/{id}", consumes = "application/json", produces = "application/json")
     public Shelter createShelterWithPets(@RequestBody @Valid List<Long> petIdList, @PathVariable(value = "id") Long shelterId) {
-
         Shelter getShelter = shelterService.getShelterById(shelterId);
-
         return shelterService.addPetsToShelter(getShelter, petIdList);
     }
 
@@ -47,7 +45,7 @@ public class ShelterController {
         return shelterService.getShelterById(shelterId);
     }
 
-    @DeleteMapping(path = "delete-shelter/{id}")
+    @DeleteMapping(path = "shelter/{id}")
     public void deleteShelter(@PathVariable(value = "id") Long shelterId) {
         shelterService.deleteById(shelterId);
     }

@@ -16,10 +16,10 @@ import javax.validation.constraints.Size;
 @NoArgsConstructor
 @Builder
 public class CreateFoodRQ {
-
+        @Size(max = 255, message = "Description is too large")
         private String description;
 
-        //private FoodType brand;
-        private String brand;
+        private FoodType brand;
+        //private String brand;
 
 }

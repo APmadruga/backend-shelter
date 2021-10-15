@@ -21,28 +21,27 @@ public class ShelterService {
         this.petRepository = petRepository;
     }
 
+
     public Shelter createShelter(Shelter newShelter){
         return shelterRepository.save(newShelter);
     }
 
-    public Shelter getShelterbyId(Long aLong){
+    public Shelter getShelterById(Long aLong){
         return shelterRepository.getById(aLong);
     }
 
+    //Creating a List<Pet> based in a List<Long> petIdList and saving it to the shelter
     public Shelter addPetsToShelter(Shelter getShelter, List<Long> petIdList) {
-
         List<Pet> petList = new ArrayList<>();
-
         for( Long i : petIdList){
             petList.add(petRepository.getById(i));
         }
-
         getShelter.setPetList(petList);
-
         return shelterRepository.save(getShelter);
     }
 
-    public Shelter getShelterbyName(String name) {
+    //Going throw all existing Shelters names and comparing them with Client input, returning the Shelter that matches
+    public Shelter getShelterByName(String name) {
         List<Shelter> allShelters = shelterRepository.findAll();
         Shelter shelter;
         for(int i = 0; i < allShelters.size(); i++){

@@ -1,6 +1,4 @@
 package com.example.backendshelter.controller;
-
-
 import com.example.backendshelter.controller.request.CreateFoodRQ;
 import com.example.backendshelter.exception.ServiceNotAvailable;
 import com.example.backendshelter.service.FoodService;
@@ -9,7 +7,6 @@ import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RestController;
-
 import javax.validation.Valid;
 import java.net.URI;
 import java.time.Clock;
@@ -24,6 +21,7 @@ public class FoodController {
         this.foodService = foodService;
     }
 
+
     @PostMapping("/food")
     //@ResponseStatus(HttpStatus.CREATED) //Approach number 1 of handling returned status code
     public ResponseEntity createFood(@RequestBody @Valid CreateFoodRQ request) {
@@ -31,9 +29,7 @@ public class FoodController {
         if(LocalDateTime.now(Clock.systemUTC()).isAfter(LocalDateTime.parse("2021-10-15T08:00:00.000000"))) {
             throw new ServiceNotAvailable("Service is not available today after 10AM");
         }
-
         foodService.save(request.getBrand(),request.getDescription());
-
         return ResponseEntity.created(URI.create("/food/1")).body("Hello this is my message"); //Approach number 1 of handling returned
     }
 }
